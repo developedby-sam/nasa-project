@@ -8,7 +8,7 @@ const { loadPlanetData } = require("./models/planets.model");
 const PORT = process.env.PORT || 8000;
 
 const MONGO_URL =
-  "mongodb+srv://samiransarime:5aV5nlN0tz7ErRJD@nasa-cluster.cxtjvlq.mongodb.net/nasa";
+  "mongodb+srv://samiransarime:5aV5nlN0tz7ErRJD@nasa-cluster.cxtjvlq.mongodb.net/nasa?retryWrites=true&w=majority&appName=nasa-cluster";
 
 const server = http.createServer(app);
 
@@ -17,7 +17,12 @@ mongoose.connection.once("open", () => {
 });
 
 mongoose.connection.on("error", (err) => {
-  console.log(err);
+  console.error(err);
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("Unhandled Rejection at:", promise, "reason:", reason);
+  // Application specific logging, throwing an error, or other logic here
 });
 
 async function startServer() {
