@@ -24,7 +24,7 @@ function existsLaunchWithId(launchId) {
 
 async function getNextFlightNumber() {
   const latestLaunch = await launchesDatabase.findOne().sort("-flightNumber");
-  console.log("Latest launch:", latestLaunch);
+  // console.log("Latest launch:", latestLaunch);
 
   if (!latestLaunch) {
     return DEFAULT_FLIGHT_NUMBER;
@@ -85,7 +85,7 @@ async function abortLaunchById(launchId) {
     }
   );
 
-  console.log(aborted);
+  // console.log(aborted);
 
   return aborted.modifiedCount === 1;
 }
